@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Nikolas Jensen</title>
+    <title>Rübezahl</title>
     <link>http://localhost:1313/</link>
-    <description>Recent content on Nikolas Jensen</description>
+    <description>Recent content on Rübezahl</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 07 Aug 2026 12:54:38 -0300</lastBuildDate>
+    <lastBuildDate>Fri, 07 Aug 2026 17:33:39 -0300</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello</title>
-      <link>http://localhost:1313/posts/hello/</link>
-      <pubDate>Fri, 07 Aug 2026 12:54:38 -0300</pubDate>
-      <guid>http://localhost:1313/posts/hello/</guid>
+      <title>Latin America Remcos Campaign</title>
+      <link>http://localhost:1313/posts/latin-america-remcos-campaign/</link>
+      <pubDate>Fri, 07 Aug 2026 17:33:39 -0300</pubDate>
+      <guid>http://localhost:1313/posts/latin-america-remcos-campaign/</guid>
       <description></description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>http://localhost:1313/about/</link>
+      <pubDate>Fri, 07 Aug 2026 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/about/</guid>
+      <description>&lt;p&gt;Rübezahl is where I publish content about threat intelligence, malware analysis and breakdowns of public incidents.&lt;/p&gt;
+&lt;h2 id=&#34;whats-here&#34;&gt;What&amp;rsquo;s here&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Malware analysis&lt;/strong&gt; — static and dynamic, with detection logic where it earns its place&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Public incident breakdowns&lt;/strong&gt; — what happened, what was defensible, what wasn&amp;rsquo;t&lt;/li&gt;
+&lt;li&gt;Occasional arguments about how intelligence gets produced and consumed&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;whats-not-here&#34;&gt;What&amp;rsquo;s not here&lt;/h2&gt;
+&lt;p&gt;No samples hosted on this site — hashes and MalwareBazaar links instead. Nothing
+sourced from client environments. Nothing derived from private or underground
+access. IOCs are defanged. Everything published here is TLP:CLEAR and comes from
+public reporting or from samples I obtained publicly.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

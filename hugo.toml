@@ -1,6 +1,6 @@
-baseURL = 'https://nikolasjensen.dev/'
+baseURL = 'https://ruebezahl.dev/'
 languageCode = 'en-us'
-title = 'Nikolas Jensen'
+title = 'Rübezahl'
 theme = 'PaperMod'
 enableRobotsTXT = true
 
@@ -13,7 +13,7 @@ enableRobotsTXT = true
 
   [params.homeInfoParams]
     Title = 'Threat intelligence notes'
-    Content = 'Threat Intelligence, malware analysis, detection engineering and adversary tracking.'
+    Content = 'Malware analysis and public incident breakdowns. Written by <a href="/about/">a threat intelligence analyst</a>.'
 
   [[params.socialIcons]]
     name = 'linkedin'
