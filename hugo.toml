@@ -1,0 +1,39 @@
+baseURL = 'https://nikolasjensen.dev/'
+languageCode = 'en-us'
+title = 'Nikolas Jensen'
+theme = 'PaperMod'
+enableRobotsTXT = true
+
+[params]
+  defaultTheme = 'auto'
+  ShowReadingTime = true
+  ShowCodeCopyButtons = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+
+  [params.homeInfoParams]
+    Title = 'Threat intelligence notes'
+    Content = 'Threat Intelligence, malware analysis, detection engineering and adversary tracking.'
+
+  [[params.socialIcons]]
+    name = 'linkedin'
+    url = 'https://linkedin.com/in/nikolas-jensen'
+  [[params.socialIcons]]
+    name = 'github'
+    url = 'https://github.com/nikkj'
+  [[params.socialIcons]]
+    name = 'rss'
+    url = '/index.xml'
+
+[[menu.main]]
+  name = 'Posts'
+  url = '/posts/'
+  weight = 10
+[[menu.main]]
+  name = 'About'
+  url = '/about/'
+  weight = 20
+
+[markup.highlight]
+  style = 'github-dark'
+  noClasses = false
