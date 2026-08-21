@@ -7,6 +7,51 @@ categories: ["Threat Intelligence"]
 summary: "Analysis of a five-stage, mostly fileless delivery chain for Remcos RAT 7.2.6 Pro, from initial phishing to persistence, injection and C2."
 ---
 
+## Table of Contents
+
+- [Summary](#summary)
+- [Initial phishing](#initial-phishing)
+- [Stage 0 — JavaScript downloader](#stage-0--javascript-downloader)
+  - [Obfuscation through Unicode insertion](#obfuscation-through-unicode-insertion)
+  - [Fileless execution](#fileless-execution)
+- [Stage 1 — PowerShell loader (`forma.txt`)](#stage-1--powershell-loader-formatxt)
+  - [Hiding the console window](#hiding-the-console-window)
+  - [Termination of .NET LOLBins](#termination-of-net-lolbins)
+  - [Binary encoding of the payload](#binary-encoding-of-the-payload)
+  - [Actions of the decoded payload (forma.txt)](#actions-of-the-decoded-payload-formatxt)
+- [Stage 2: the modular downloader](#stage-2-the-modular-downloader)
+  - [Obfuscated script inside controle-de-pais.ps1: downloading the components](#obfuscated-script-inside-controle-de-paisps1-downloading-the-components)
+  - [Substitution cipher over the hexadecimal](#substitution-cipher-over-the-hexadecimal)
+  - [Method names supplied by the server](#method-names-supplied-by-the-server)
+  - [Execution and fault tolerance](#execution-and-fault-tolerance)
+  - [Persistence via scheduled tasks](#persistence-via-scheduled-tasks)
+  - [What remains on the host at the end of Stage 2](#what-remains-on-the-host-at-the-end-of-stage-2)
+- [Stage 3: injection and execution of Remcos](#stage-3-injection-and-execution-of-remcos)
+  - [The injector: NewPE2](#the-injector-newpe2)
+  - [Process hollowing over AddInProcess32.exe](#process-hollowing-over-addinprocess32exe)
+  - [Remcos 7.2.6 Pro](#remcos-726-pro)
+  - [Remcos capabilities in this build](#remcos-capabilities-in-this-build)
+- [Pivoting to a related campaign: July 2026](#pivoting-to-a-related-campaign-july-2026)
+  - [Delivery](#delivery)
+  - [Payload](#payload)
+  - [Exposed telemetry](#exposed-telemetry)
+  - [Correlation](#correlation)
+- [Intelligence analysis](#intelligence-analysis)
+  - [Victimology](#victimology)
+  - [Context: an established market](#context-an-established-market)
+  - [Convergences and divergences](#convergences-and-divergences)
+- [Impact](#impact)
+- [Conclusion](#conclusion)
+- [Detection opportunities](#detection-opportunities)
+- [Network IOCs](#network-iocs)
+- [Files: August campaign](#files-august-campaign)
+- [Files: modular components](#files-modular-components)
+- [Files: July campaign](#files-july-campaign)
+- [Extracted artifacts](#extracted-artifacts)
+- [Host](#host)
+- [YARA rules](#yara-rules)
+- [LLM usage](#llm-usage)
+
 ### Summary
 
 In August 2026 a campaign was identified delivering Remcos RAT 7.2.6 Pro through a five-stage chain, executed almost entirely in memory. The initial file has a WhatsApp image name and a double extension. The delivery vector and the target audience of this sample were not identified. Pivoting on the infrastructure revealed an earlier campaign, from July, directed at the hospitality sector.
