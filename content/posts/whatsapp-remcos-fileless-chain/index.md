@@ -7,9 +7,6 @@ categories: ["Threat Intelligence"]
 summary: "Analysis of a five-stage, mostly fileless delivery chain for Remcos RAT 7.2.6 Pro, from initial phishing to persistence, injection and C2."
 ---
 
-
-## From a WhatsApp image to Remcos: anatomy of a fileless chain
-
 ### Summary
 
 In August 2026 a campaign was identified delivering Remcos RAT 7.2.6 Pro through a five-stage chain, executed almost entirely in memory. The initial file has a WhatsApp image name and a double extension. The delivery vector and the target audience of this sample were not identified. Pivoting on the infrastructure revealed an earlier campaign, from July, directed at the hospitality sector.
@@ -575,49 +572,53 @@ In any case, the operator's language does not match that of the only confirmed t
 
 Rule for detecting the PowerShell stage:
 
-`rule Remcos_Campaign_PowerShell_Loader`
-`{`
-    `meta:`
-        `author = "Nikolas Jensen"`
-        `description = "PowerShell loader stages of campaign delivering Remcos 7.2.6 Pro"`
-        `date = "2026-08-18"`
-        `reference = "https://nikkj.github.io/"`
-    `strings:`
-        `$marker = "@@@_@@@_@@@_@@@" ascii wide`
-        `$decoder_func = "Get-DecodedBinaryCommand" ascii wide`
-        `$host_exclusion = "Adobe Reader Document PDF" ascii wide`
-    `condition:`
-        `filesize < 500KB and`
-        `(`
-            `$marker or`
-            `($decoder_func and $host_exclusion)`
-        `)`
-`}`
+```yara
+rule Remcos_Campaign_PowerShell_Loader
+{
+    meta:
+        author = "Nikolas Jensen"
+        description = "PowerShell loader stages of campaign delivering Remcos 7.2.6 Pro"
+        date = "2026-08-18"
+        reference = "https://nikkj.github.io/"
+    strings:
+        $marker = "@@@_@@@_@@@_@@@" ascii wide
+        $decoder_func = "Get-DecodedBinaryCommand" ascii wide
+        $host_exclusion = "Adobe Reader Document PDF" ascii wide
+    condition:
+        filesize < 500KB and
+        (
+            $marker or
+            ($decoder_func and $host_exclusion)
+        )
+}
+```
 
 Rule for detecting the Remcos executable:
 
-`import "pe"`
+```yara
+import "pe"
 
-`rule Remcos_726_Pro_Campaign`
-`{`
-    `meta:`
-	    `author = "Nikolas Jensen"`
-        `description = "Remcos 7.2.6 Pro payload from PT-BR controle-de-pais campaign"`
-        `date = "2026-08-18"`
-        `reference = "https://nikkj.github.io/"`
-    `strings:`
-        `$version = "7.2.6 Pro" ascii`
-        `$vendor = "BreakingSecurity.net" ascii`
-        `$agent = "Remcos Agent initialized" ascii`
-        `$settings = "SETTINGS" ascii`
-        `$folder_ptbr = "Capturas de tela" ascii`
-    `condition:`
-        `uint16(0) == 0x5A4D and`
-        `(`
-            `($folder_ptbr and 2 of ($version, $vendor, $agent)) or`
-            `(3 of ($version, $vendor, $agent, $settings) and pe.number_of_resources > 0)`
-        `)`
-`}`
+rule Remcos_726_Pro_Campaign
+{
+    meta:
+        author = "Nikolas Jensen"
+        description = "Remcos 7.2.6 Pro payload from PT-BR controle-de-pais campaign"
+        date = "2026-08-18"
+        reference = "https://nikkj.github.io/"
+    strings:
+        $version = "7.2.6 Pro" ascii
+        $vendor = "BreakingSecurity.net" ascii
+        $agent = "Remcos Agent initialized" ascii
+        $settings = "SETTINGS" ascii
+        $folder_ptbr = "Capturas de tela" ascii
+    condition:
+        uint16(0) == 0x5A4D and
+        (
+            ($folder_ptbr and 2 of ($version, $vendor, $agent)) or
+            (3 of ($version, $vendor, $agent, $settings) and pe.number_of_resources > 0)
+        )
+}
+```
 
 # LLM usage
 
